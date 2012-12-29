@@ -1,3 +1,0 @@
-Simple python scripts to deploy Hadoop
-
-The initial version has only hadoop-1, the plan is to add scripts and confs for hadoop-2 and cdh versions of hadoop.

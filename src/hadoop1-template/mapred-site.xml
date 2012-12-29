@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>@JOB_TRACKER@:@JOB_TRACKER_PORT@</value>
+  </property>
+  <property>
+    <name>mapred.job.tracker.http.address</name>
+    <value>@JOB_TRACKER@:@JOB_TRACKER_HTTP_PORT@</value>
+  </property>
+  <property>
+    <name>mapred.task.tracker.http.address</name>
+    <value>0.0.0.0:0</value>
+  </property>
+<property>
+  <name>mapred.local.dir</name>
+  <value>
+    /data/1/@USER@/hdfs/mrlocal,
+    /data/2/@USER@/hdfs/mrlocal,
+    /data/3/@USER@/hdfs/mrlocal,
+    /data/4/@USER@/hdfs/mrlocal,
+    /data/5/@USER@/hdfs/mrlocal,
+    /data/6/@USER@/hdfs/mrlocal
+  </value>
+</property>
+</configuration>

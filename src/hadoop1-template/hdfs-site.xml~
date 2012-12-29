@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+  <!-- name node -->
+  <property>
+    <!-- URI of NN. Fully qualified. No IP.-->
+    <name>fs.default.name</name>
+    <value>hdfs://@NAMENODE@:@NAMENODE_PORT@</value>
+  </property>
+
+  <!-- datanode -->
+  <property>
+    <name>dfs.block.size</name>
+    <!-- 128mb -->
+    <value>134217728</value>
+  </property>
+
+<property>
+  <name>dfs.secondary.http.address</name>
+  <value>0.0.0.0:0</value>
+  <description>
+    The secondary namenode http server address and port.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+
+<property>
+  <name>dfs.datanode.address</name>
+  <value>0.0.0.0:@DFS_DATANODE_PORT@</value>
+  <description>
+    The address where the datanode server will listen to.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+
+<property>
+  <name>dfs.datanode.http.address</name>
+  <value>0.0.0.0:0</value>
+  <description>
+    The datanode http server address and port.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>dfs.datanode.ipc.address</name>
+  <value>0.0.0.0:@DFS_DATANODE_IPC_PORT@</value>
+  <description>
+    The datanode ipc server address and port.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+
+<property>
+  <name>dfs.http.address</name>
+  <value>0.0.0.0:@DFS_HTTP_PORT@</value>
+  <description>
+    The address and the base port where the dfs namenode web ui will listen on.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>dfs.name.dir</name>
+  <value>/data/1/@USER@/namedir</value>
+</property>
+<property>
+  <name>dfs.data.dir</name>
+  <value>
+/data/1/@USER@/datadir,
+/data/2/@USER@/datadir,
+/data/3/@USER@/datadir,
+/data/4/@USER@/datadir,
+/data/5/@USER@/datadir,
+/data/6/@USER@/datadir
+  </value>
+</property>
+
+<property>
+  <name>dfs.support.append</name>
+  <value>true</value>
+</property>
+
+</configuration>

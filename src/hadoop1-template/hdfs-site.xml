@@ -61,18 +61,11 @@
 </property>
 <property>
   <name>dfs.name.dir</name>
-  <value>/data/1/@USER@/hdfs/namedir</value>
+  <value>@DFS_NAME_DIR@</value>
 </property>
 <property>
   <name>dfs.data.dir</name>
-  <value>
-    /data/1/@USER@/hdfs/datadir,
-    /data/2/@USER@/hdfs/datadir,
-    /data/3/@USER@/hdfs/datadir,
-    /data/4/@USER@/hdfs/datadir,
-    /data/5/@USER@/hdfs/datadir,
-    /data/6/@USER@/hdfs/datadir
-  </value>
+  <value>@DFS_DATA_DIR@</value>
 </property>
 
 <property>

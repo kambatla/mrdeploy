@@ -2,18 +2,27 @@
 
 import utils
 
+def buildLocalDirString(localDirs):
+    empty = True
+    for local in localDirs:
+        if (empty):
+            localDirString = local
+        else:
+            localDirString += "," + local
+    return localDirString
+
 def writeSlavesFile(slaves):
     f = open('slaves', 'w')
     for slave in slaves:
         f.write(slave + "\n")
     f.close()
 
-def setupConf(master, slaves, port, javahome):
+def setupConf(master, slaves, port, javahome, localDirString):
     # copy templates to conf
     utils.cmd("rm -rf conf; cp -r hadoop1-template conf")
     
     # setup conf with the details
-    utils.cmd("cd conf; sh mr1-setup-conf.sh " + master + " " + port + " " + javahome + "; cd ..")
+    utils.cmd("cd conf; sh mr1-setup-conf.sh " + master + " " + port + " " + javahome + " " + localDirString + "; cd ..")
     writeSlavesFile(slaves)
     utils.cmd("cp slaves conf/slaves")
 
@@ -35,23 +44,24 @@ def getFileAndDirNames(tarball):
 
     return [fileName, dirName];
 
-'''
-Deploy to an NFS based cluster - enough to copy to one node
-'''
-def deployNFS(user, master, fileName, dirName, destLoc):
-    utils.cmd_on_remote(master, user, "mkdir -p " + destLoc + "; rm -rf " + destLoc + "/" + dirName + "*")
+def deploy(user, master, fileName, dirName, destLoc, localDirs):
+    cmd = "mkdir -p " + destLoc + ";"
+    cmd += "rm -rf " + destLoc + "/" + dirName + "*;"
+    for localDir in localDirs:
+        cmd += "mkdir -p " + localDir + ";"
+    utils.cmd_on_remote(master, user, cmd)
     utils.copy_to_remote(master, user, fileName, destLoc)
     utils.cmd_on_remote(master, user, "cd " + destLoc + ";tar -xzf " + fileName + ";chmod +x " + dirName + "/sbin/*")    
 
 def install(options):
     [fileName, dirName] = getFileAndDirNames(options.tarball)
     if ("clean" in options.args):
-        setupConf(options.master, options.machines, options.port, options.javahome)
+        setupConf(options.master, options.machines, options.port, options.javahome, buildLocalDirString(options.localDirs))
         buildTarBall(options.tarball, fileName, dirName)
         
-    deployNFS(options.user, options.master, fileName, dirName, options.destLoc)
+    deploy(options.user, options.master, fileName, dirName, options.destLoc, options.localDirs)
     for slave in options.machines:
-        deployNFS(options.user, slave, fileName, dirName, options.destLoc)
+        deploy(options.user, slave, fileName, dirName, options.destLoc, options.localDirs)
 
 def main():
     options = utils.MyOptions()

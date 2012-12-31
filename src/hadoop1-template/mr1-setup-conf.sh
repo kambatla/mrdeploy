@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#usage mr1-setup-conf.sh <master> <base_port>
+#usage mr1-setup-conf.sh <master> <base_port> <java_home> <HDFS_BASE_DIR>
 
-USER=kasha
 MASTER=$1
 HADOOP_BASE_PORT=$2
 JAVA_HOME=$3
+HDFS_BASE_DIR=$4
 
 #####################################################################################################
 
@@ -14,6 +14,11 @@ JAVA_HOME=$3
 
 NAMENODE=$MASTER
 JOB_TRACKER=$MASTER
+
+DFS_NAME_DIR=$HDFS_BASE_DIR/name
+DFS_DATA_DIR=$HDFS_BASE_DIR/data
+MAPRED_LOCAL_DIR=$HDFS_BASE_DIR/mrlocal
+
 
 NAMENODE_PORT=$(($HADOOP_BASE_PORT + 10))
 DFS_DATANODE_PORT=$(($HADOOP_BASE_PORT + 20))
@@ -34,7 +39,10 @@ for FILE in $XML_CONFIGS; do
   sed -i -e "s|@JOB_TRACKER@|$JOB_TRACKER|" $FILE
   sed -i -e "s|@JOB_TRACKER_PORT@|$JOB_TRACKER_PORT|" $FILE
   sed -i -e "s|@JOB_TRACKER_HTTP_PORT@|$JOB_TRACKER_HTTP_PORT|" $FILE
-  sed -i -e "s|@USER@|$USER|" $FILE
+#  sed -i -e "s|@USER@|$USER|" $FILE
+  sed -i -e "s|@DFS_DATA_DIR@|$DFS_DATA_DIR|" $FILE
+  sed -i -e "s|@DFS_NAME_DIR@|$DFS_NAME_DIR|" $FILE
+  sed -i -e "s|@MAPRED_LOCAL_DIR@|$MAPRED_LOCAL_DIR" $FILE
 done
 
 sed -i -e "s|@JAVA_HOME@|$JAVA_HOME|" 'hadoop-env.sh'

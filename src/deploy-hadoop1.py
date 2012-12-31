@@ -2,13 +2,13 @@
 
 import utils
 
-def buildLocalDirString(localDirs):
+def buildLocalDirString(localDirs, sep):
     empty = True
     for local in localDirs:
         if (empty):
             localDirString = local
         else:
-            localDirString += "," + local
+            localDirString += sep + local
     return localDirString
 
 def writeSlavesFile(slaves):
@@ -45,10 +45,11 @@ def getFileAndDirNames(tarball):
     return [fileName, dirName];
 
 def deploy(user, master, fileName, dirName, destLoc, localDirs):
+    localDirString = buildLocalDirString(localDirs, ' ')
     cmd = "mkdir -p " + destLoc + ";"
+    cmd += "rm -rf " + localDirString + ";"
     cmd += "rm -rf " + destLoc + "/" + dirName + "*;"
-    for localDir in localDirs:
-        cmd += "mkdir -p " + localDir + ";"
+    cmd += "mkdir -p " + localDirString + ";"
     utils.cmd_on_remote(master, user, cmd)
     utils.copy_to_remote(master, user, fileName, destLoc)
     utils.cmd_on_remote(master, user, "cd " + destLoc + ";tar -xzf " + fileName + ";chmod +x " + dirName + "/sbin/*")    
@@ -56,7 +57,7 @@ def deploy(user, master, fileName, dirName, destLoc, localDirs):
 def install(options):
     [fileName, dirName] = getFileAndDirNames(options.tarball)
     if ("clean" in options.args):
-        setupConf(options.master, options.machines, options.port, options.javahome, buildLocalDirString(options.localDirs))
+        setupConf(options.master, options.machines, options.port, options.javahome, buildLocalDirString(options.localDirs, ','))
         buildTarBall(options.tarball, fileName, dirName)
         
     deploy(options.user, options.master, fileName, dirName, options.destLoc, options.localDirs)

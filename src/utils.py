@@ -69,14 +69,16 @@ class MyOptions:
                           help="slave nodes (or prefix if using range)")
         parser.add_option("-r", "--range", dest="targetRange",
                           help="range of machines")
+        parser.add_option("-d", "--domain", dest="domain",
+                          help="domain of the machines")
         parser.add_option("-m", "--master", dest="master",
                           help="hadoop cluster master")
         parser.add_option("-p", "--port", dest="port",
                           help="base port for hadoop")
         parser.add_option("-b", "--ball", dest="tarball",
                           help="hadoop tar ball")
-        parser.add_option("-d", "--destLoc", dest="destLoc",
-                          help="hadoop location on destinaton nodes")
+        parser.add_option("-i", "--instLoc", dest="destLoc",
+                          help="install location on destination nodes")
         parser.add_option("-j", "--javahome", dest="javahome",
                           help="JAVA_HOME for hadoop-env")
 
@@ -98,7 +100,13 @@ class MyOptions:
             rangeList = [rng.strip() for rng in options.targetRange.split(',')]
             destList = machineList_from_range(targetList[0], int(rangeList[0]), int(rangeList[1]))
 
-        self.machines = destList
+        if not (options.domain):
+            dstList = destList
+        else:
+            dstList = [dst + '.' + options.domain for dst in destList]
+            print dstList
+
+        self.machines = dstList
         self.master = options.master
         self.port = options.port
         self.tarball = options.tarball

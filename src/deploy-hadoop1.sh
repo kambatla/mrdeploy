@@ -1,0 +1,1 @@
+python deploy-hadoop1.py -m styx05 -s styx0 -r 1,4 -p 23000 -b /home/kasha/code/hadoop-1/build/hadoop-1.2.0-SNAPSHOT-x86_64-bin.tar.gz -d /data/1/kasha/install/ -j /opt/toolchain/sun-jdk-64bit-1.6.0.26 clean

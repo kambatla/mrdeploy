@@ -1,0 +1,1 @@
+python deploy-hadoop1.py -m localhost -s localhost -p 23000 -b /home/kasha/code/hadoop-1/build/hadoop-1.2.0-SNAPSHOT-x86_64-bin.tar.gz -i /home/kasha/install/ -j /home/kasha/toolchain/sun-jdk-64bit-1.6.0.31/ clean

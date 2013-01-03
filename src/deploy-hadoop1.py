@@ -59,7 +59,7 @@ def install(options):
     if ("clean" in options.args):
         setupConf(options.master, options.machines, options.port, options.javahome, buildLocalDirString(options.localDirs, ','))
         buildTarBall(options.tarball, fileName, dirName)
-        
+
     deploy(options.user, options.master, fileName, dirName, options.destLoc, options.localDirs)
     for slave in options.machines:
         deploy(options.user, slave, fileName, dirName, options.destLoc, options.localDirs)

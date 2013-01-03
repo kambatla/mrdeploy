@@ -7,6 +7,10 @@ HADOOP_BASE_PORT=$2
 JAVA_HOME=$3
 HDFS_BASE_DIR=$4
 
+echo "Master: $MASTER"
+echo "Base port: $HADOOP_BASE_PORT"
+echo "Base dir: $HDFS_BASE_DIR"
+
 #####################################################################################################
 
 # DFS WebUI 23070

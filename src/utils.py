@@ -79,7 +79,7 @@ class MyOptions:
                           help="hadoop tar ball")
         parser.add_option("-i", "--instLoc", dest="destLoc",
                           help="install location on destination nodes")
-        parser.add_option("-l", "--local", dest="localDir",
+        parser.add_option("-l", "--local", dest="localDirs",
                           help="path to hdfs local directory")
         parser.add_option("-j", "--javahome", dest="javahome",
                           help="JAVA_HOME for hadoop-env")
@@ -108,10 +108,10 @@ class MyOptions:
             dstList = [dst + '.' + options.domain for dst in destList]
             print dstList
 
-        if not (options.localDir):
+        if not (options.localDirs):
             localDirs = ["/tmp/hdfs"]
         else:
-            localDirs = [local.strip() for local in options.target.split(',')]
+            localDirs = [local.strip() for local in options.localDirs.split(',')]
 
         self.machines = dstList
         self.master = options.master

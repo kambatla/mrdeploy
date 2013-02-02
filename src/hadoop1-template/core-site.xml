@@ -6,7 +6,10 @@
     <name>fs.default.name</name>
     <value>hdfs://@NAMENODE@:@NAMENODE_PORT@</value>
   </property>
-
+  <property>
+    <name>hadoop.security.group.mapping</name>
+    <value>org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback</value>
+  </property>
   <property>
     <!-- Amount of data buffered in r/w operations. Multiple of hw pages
     in bytes. -->

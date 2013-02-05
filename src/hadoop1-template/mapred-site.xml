@@ -7,7 +7,7 @@
   </property>
   <property>
     <name>mapred.job.tracker.http.address</name>
-    <value>@JOB_TRACKER@:@JOB_TRACKER_HTTP_PORT@</value>
+    <value>0.0.0.0:@JOB_TRACKER_HTTP_PORT@</value>
   </property>
   <property>
     <name>mapred.task.tracker.http.address</name>

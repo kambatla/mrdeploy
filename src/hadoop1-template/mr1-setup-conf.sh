@@ -32,6 +32,7 @@ for FILE in $XML_CONFIGS; do
   sed -i -e "s|@HADOOP_LOG_DIR@|$HADOOP_LOG_DIR|" $FILE 
   sed -i -e "s|@DFS_DATA_DIR@|$DFS_DATA_DIR|" $FILE
   sed -i -e "s|@DFS_NAME_DIR@|$DFS_NAME_DIR|" $FILE
+  sed -i -e "s|@DFS_BLOCK_SIZE@|$DFS_BLOCK_SIZE|" $FILE
   sed -i -e "s|@MAPRED_LOCAL_DIR@|$MAPRED_LOCAL_DIR|" $FILE
 
   sed -i -e "s|@TT_MAP_TASKS_MAX@|$TT_MAP_TASKS_MAX|" $FILE

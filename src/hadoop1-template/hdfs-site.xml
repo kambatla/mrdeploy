@@ -11,7 +11,7 @@
   <property>
     <name>dfs.block.size</name>
     <!-- 128mb -->
-    <value>134217728</value>
+    <value>@DFS_BLOCK_SIZE@</value>
   </property>
   <property>
     <name>dfs.secondary.http.address</name>
